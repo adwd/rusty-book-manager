@@ -25,7 +25,7 @@ pub async fn register_user(
     if !user.is_admin() {
         return Err(AppError::ForbiddenOperation);
     }
-    req.validate(&())?;
+    req.validate()?;
 
     let registered_user = registry.user_repository().create(req.into()).await?;
 
@@ -98,7 +98,7 @@ pub async fn change_password(
     State(registry): State<AppRegistry>,
     Json(req): Json<UpdateUserPasswordRequest>,
 ) -> AppResult<StatusCode> {
-    req.validate(&())?;
+    req.validate()?;
 
     registry
         .user_repository()
